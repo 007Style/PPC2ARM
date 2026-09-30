@@ -2,6 +2,10 @@
 
 ### *From the minds of IBM Bob & Daneyand*
 
+[![Release](https://img.shields.io/github/v/release/007Style/PPC2ARM?label=latest%20release&color=brightgreen)](https://github.com/007Style/PPC2ARM/releases/latest)
+[![Platform](https://img.shields.io/badge/platform-macOS%20arm64-blue)](https://github.com/007Style/PPC2ARM/releases/latest)
+[![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+
 ```
   ██████╗ ██████╗  ██████╗██████╗  █████╗ ██████╗ ███╗   ███╗
   ██╔══██╗██╔══██╗██╔════╝╚════██╗██╔══██╗██╔══██╗████╗ ████║
@@ -144,7 +148,26 @@ Because life is short and assembly is hard:
 
 ---
 
-## Requirements
+## Download
+
+> **[⬇ Download PPC2ARM v1.0.0 for macOS (Apple Silicon)](https://github.com/007Style/PPC2ARM/releases/latest)**
+
+| Platform | File | Size |
+|----------|------|------|
+| macOS (Apple Silicon / arm64) | [`PPC2ARM-1.0.0-macos-arm64.zip`](https://github.com/007Style/PPC2ARM/releases/download/v1.0.0/PPC2ARM-1.0.0-macos-arm64.zip) | ~41 MB |
+
+**To install the macOS app:**
+1. Download `PPC2ARM-1.0.0-macos-arm64.zip` from the link above
+2. Unzip it (double-click or `unzip PPC2ARM-1.0.0-macos-arm64.zip`)
+3. Drag `PPC2ARM.app` to your `/Applications` folder
+4. **First launch:** Right-click → Open (bypasses the Gatekeeper "unidentified developer" warning — the app is unsigned but safe)
+5. Double-click to open normally from then on
+
+No Python installation required. No dependencies. It just runs.
+
+---
+
+## Requirements (running from source)
 
 - **Python 3.10+**
 - **wxPython >= 4.2** (GUI only — CLI and REPL work without it)
@@ -157,10 +180,10 @@ The CLI and REPL have **zero external dependencies**. Pure stdlib Python.
 
 ---
 
-## Installation
+## Installation (from source)
 
 ```bash
-git clone <repo>
+git clone https://github.com/007Style/PPC2ARM.git
 cd PPC2ARM
 pip install -r requirements.txt   # only needed for GUI
 ```
