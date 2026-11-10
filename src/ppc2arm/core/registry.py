@@ -6,15 +6,14 @@ Provides a central place to query:
   - Whether a given mnemonic is available for a requested mode/capability.
   - Fast iteration for the engine's search and list_categories methods.
 
-The registry does NOT hold the instruction data itself; it imports from
-data.ppc_instructions and data.arm_instructions.
+The registry does NOT hold the instruction data itself; it imports from ppc2arm.data.ppc_instructions and data.arm_instructions.
 """
 
 from __future__ import annotations
 
 from typing import Optional
 
-from data.isa_schema import ISACapability, MappingEntry
+from ppc2arm.data.isa_schema import ISACapability, MappingEntry
 
 
 class ISARegistry:
@@ -32,8 +31,8 @@ class ISARegistry:
 
     def __init__(self) -> None:
         # Lazy-import to keep module load fast
-        from data.ppc_instructions import PPC_INSTRUCTIONS
-        from data.arm_instructions import ARM_INSTRUCTIONS
+        from ppc2arm.data.ppc_instructions import PPC_INSTRUCTIONS
+        from ppc2arm.data.arm_instructions import ARM_INSTRUCTIONS
 
         self._tables: dict[str, dict[str, dict]] = {
             "ppc": PPC_INSTRUCTIONS,

@@ -2,7 +2,7 @@
 arm_instructions.py — ARM / AArch64 instruction database for PPC2ARM.
 
 Keys are canonical uppercase mnemonics (e.g. "ADD", "LDR", "FMADD").
-Values are dicts conforming to the Instruction schema from data.isa_schema.
+Values are dicts conforming to the Instruction schema from ppc2arm.data.isa_schema.
 
 Coverage
 --------

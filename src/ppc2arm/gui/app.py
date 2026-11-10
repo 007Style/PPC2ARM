@@ -3,7 +3,7 @@ app.py — wx.App subclass and MainFrame for PPC2ARM.
 
 Launching
 ---------
-    from gui.app import PPC2ARMApp
+    from ppc2arm.gui.app import PPC2ARMApp
     app = PPC2ARMApp(initial_mode="32")
     app.MainLoop()
 """
@@ -16,18 +16,13 @@ import os
 import wx
 import wx.aui
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
-_ROOT = os.path.dirname(_HERE)
-if _ROOT not in sys.path:
-    sys.path.insert(0, _ROOT)
-
-from gui.theme import THEME, apply_theme, get_font
-from gui.mode_bar import (
+from ppc2arm.gui.theme import THEME, apply_theme, get_font
+from ppc2arm.gui.mode_bar import (
     ModeBar,
     EVT_DIRECTION_CHANGED,
     EVT_MODE_CHANGED,
 )
-from gui.widgets.ticker_bar import TickerBar
+from ppc2arm.gui.widgets.ticker_bar import TickerBar
 
 
 _ASCII_LOGO = (
@@ -81,7 +76,7 @@ class MainFrame(wx.Frame):
 
         self._ticker.start()
 
-        from gui.easter_eggs import EasterEggManager
+        from ppc2arm.gui.easter_eggs import EasterEggManager
         self._egg_manager = EasterEggManager(self)
 
     # ------------------------------------------------------------------
@@ -140,8 +135,8 @@ class MainFrame(wx.Frame):
         sb.SetBackgroundColour(THEME.STATUS_BG)
         sb.SetForegroundColour(THEME.STATUS_FG)
         sb.SetStatusText("Ready", 0)
-        from data.ppc_instructions import PPC_INSTRUCTIONS
-        from data.arm_instructions import ARM_INSTRUCTIONS
+        from ppc2arm.data.ppc_instructions import PPC_INSTRUCTIONS
+        from ppc2arm.data.arm_instructions import ARM_INSTRUCTIONS
         sb.SetStatusText(
             f"PPC: {len(PPC_INSTRUCTIONS)}  ARM: {len(ARM_INSTRUCTIONS)}", 1
         )
@@ -175,7 +170,7 @@ class MainFrame(wx.Frame):
 
         self.SetSizer(outer)
 
-        from gui.main_panel import MainLookupPanel
+        from ppc2arm.gui.main_panel import MainLookupPanel
         self._lookup_panel = MainLookupPanel(
             self._notebook,
             direction=self._mode_bar.direction,
@@ -183,7 +178,7 @@ class MainFrame(wx.Frame):
         )
         self._notebook.AddPage(self._lookup_panel, "Lookup", select=True)
 
-        from gui.isa_museum import ISAMuseumPanel
+        from ppc2arm.gui.isa_museum import ISAMuseumPanel
         self._museum_panel = ISAMuseumPanel(self._notebook)
         self._notebook.AddPage(self._museum_panel, "ISA Museum", select=False)
 
@@ -215,13 +210,13 @@ class MainFrame(wx.Frame):
                 break
 
     def _on_about(self, _event) -> None:
-        from gui.widgets.about_dialog import AboutDialog
+        from ppc2arm.gui.widgets.about_dialog import AboutDialog
         dlg = AboutDialog(self)
         dlg.ShowModal()
         dlg.Destroy()
 
     def _on_random_fact(self, _event) -> None:
-        from data.isa_trivia import ISA_FACTS
+        from ppc2arm.data.isa_trivia import ISA_FACTS
         import random
         fact = random.choice(ISA_FACTS)
         isa  = fact.get("isa", "?").upper()
@@ -234,9 +229,9 @@ class MainFrame(wx.Frame):
         )
 
     def _on_instr_stats(self, _event) -> None:
-        from data.ppc_instructions import PPC_INSTRUCTIONS
-        from data.arm_instructions import ARM_INSTRUCTIONS
-        from data.mappings import PPC_TO_ARM
+        from ppc2arm.data.ppc_instructions import PPC_INSTRUCTIONS
+        from ppc2arm.data.arm_instructions import ARM_INSTRUCTIONS
+        from ppc2arm.data.mappings import PPC_TO_ARM
         msg = (
             f"Instruction counts\n"
             f"──────────────────\n"
@@ -247,13 +242,13 @@ class MainFrame(wx.Frame):
         wx.MessageBox(msg, "Instruction Count Stats", wx.OK | wx.ICON_INFORMATION, self)
 
     def _on_isa_timeline(self, _event) -> None:
-        from gui.isa_museum import ISATimelineDialog
+        from ppc2arm.gui.isa_museum import ISATimelineDialog
         dlg = ISATimelineDialog(self)
         dlg.ShowModal()
         dlg.Destroy()
 
     def _on_bench_trivia(self, _event) -> None:
-        from data.isa_trivia import ISA_FACTS
+        from ppc2arm.data.isa_trivia import ISA_FACTS
         import random
         pool = [f for f in ISA_FACTS if f.get("category") == "benchmark"]
         if not pool:
@@ -268,7 +263,7 @@ class MainFrame(wx.Frame):
         )
 
     def _on_statusbar_right_click(self, _event) -> None:
-        from data.isa_trivia import COMPILER_QUOTES
+        from ppc2arm.data.isa_trivia import COMPILER_QUOTES
         import random
         quote = random.choice(COMPILER_QUOTES)
         wx.MessageBox(quote, "Compiler Quote", wx.OK | wx.ICON_INFORMATION, self)

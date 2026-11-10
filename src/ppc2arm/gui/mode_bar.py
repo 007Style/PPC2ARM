@@ -11,7 +11,7 @@ from __future__ import annotations
 import wx
 import wx.lib.newevent
 
-from gui.theme import THEME, get_font, style_button
+from ppc2arm.gui.theme import THEME, get_font, style_button
 
 # ---------------------------------------------------------------------------
 # Custom events

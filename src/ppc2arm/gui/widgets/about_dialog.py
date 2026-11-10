@@ -9,8 +9,8 @@ from __future__ import annotations
 import wx
 import wx.richtext
 
-from gui.theme import THEME, get_font
-from data.isa_trivia import HIDDEN_MESSAGES
+from ppc2arm.gui.theme import THEME, get_font
+from ppc2arm.data.isa_trivia import HIDDEN_MESSAGES
 
 
 class AboutDialog(wx.Dialog):

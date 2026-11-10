@@ -12,10 +12,10 @@ from __future__ import annotations
 import datetime
 import wx
 
-from core.engine import InstructionEngine
-from gui.theme import THEME, get_font
-from gui.widgets.searchable_list import SearchableList, EVT_INSTR_SELECTED
-from gui.result_panel import ResultPanel
+from ppc2arm.core.engine import InstructionEngine
+from ppc2arm.gui.theme import THEME, get_font
+from ppc2arm.gui.widgets.searchable_list import SearchableList, EVT_INSTR_SELECTED
+from ppc2arm.gui.result_panel import ResultPanel
 
 
 class MainLookupPanel(wx.Panel):
@@ -100,13 +100,13 @@ class MainLookupPanel(wx.Panel):
     def _populate_list(self) -> None:
         """Fill the left list with all mnemonics for the current ISA."""
         if self._direction == "ppc":
-            from data.ppc_instructions import PPC_INSTRUCTIONS
+            from ppc2arm.data.ppc_instructions import PPC_INSTRUCTIONS
             items = [
                 (m, r.get("category", ""))
                 for m, r in sorted(PPC_INSTRUCTIONS.items())
             ]
         else:
-            from data.arm_instructions import ARM_INSTRUCTIONS as X86_INSTRUCTIONS
+            from ppc2arm.data.arm_instructions import ARM_INSTRUCTIONS as X86_INSTRUCTIONS
             items = [
                 (m, r.get("category", ""))
                 for m, r in sorted(X86_INSTRUCTIONS.items())

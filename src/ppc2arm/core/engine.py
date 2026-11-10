@@ -21,11 +21,11 @@ from __future__ import annotations
 import random
 from dataclasses import dataclass, field
 
-from data.ppc_instructions import PPC_INSTRUCTIONS
-from data.arm_instructions import ARM_INSTRUCTIONS
-from data.mappings import PPC_TO_ARM, ARM_TO_PPC, MappingEntry
-from data.isa_trivia import ISA_FACTS, ISA_PROFILES, COMPILER_QUOTES
-from core.fuzzy import fuzzy_match
+from ppc2arm.data.ppc_instructions import PPC_INSTRUCTIONS
+from ppc2arm.data.arm_instructions import ARM_INSTRUCTIONS
+from ppc2arm.data.mappings import PPC_TO_ARM, ARM_TO_PPC, MappingEntry
+from ppc2arm.data.isa_trivia import ISA_FACTS, ISA_PROFILES, COMPILER_QUOTES
+from ppc2arm.core.fuzzy import fuzzy_match
 
 
 @dataclass
@@ -278,9 +278,6 @@ class InstructionEngine:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import sys, os
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
     engine = InstructionEngine()
 
     TESTS = [

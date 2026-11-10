@@ -167,6 +167,27 @@ No Python installation required. No dependencies. It just runs.
 
 ---
 
+## Install with pipx (recommended)
+
+```bash
+pipx install ppc2arm
+ppc2arm --from ppc --instr lwz     # single lookup
+ppc2arm                            # interactive REPL
+```
+
+The CLI and REPL have no dependencies. For the retro ISA-museum GUI, add wxPython to the same
+isolated environment, then launch it:
+
+```bash
+pipx inject ppc2arm wxPython
+ppc2arm --gui
+```
+
+Upgrade with `pipx upgrade ppc2arm`; remove with `pipx uninstall ppc2arm`. If the command is not found,
+run `pipx ensurepath` and open a new terminal.
+
+---
+
 ## Requirements (running from source)
 
 - **Python 3.10+**
@@ -185,7 +206,9 @@ The CLI and REPL have **zero external dependencies**. Pure stdlib Python.
 ```bash
 git clone https://github.com/007Style/PPC2ARM.git
 cd PPC2ARM
-pip install -r requirements.txt   # only needed for GUI
+pip install -e .                  # CLI/REPL only
+pip install -e '.[gui]'           # plus the wxPython GUI
+ppc2arm --help
 ```
 
 That's it. There's no build step, no compiled extension, no C code, no Rust. Just Python files.
@@ -198,20 +221,20 @@ That's it. There's no build step, no compiled extension, no C code, no Rust. Jus
 
 ```bash
 # PPC → ARM
-python ppc2arm.py --from ppc --instr lwz
-python ppc2arm.py --from ppc --instr add
-python ppc2arm.py --from ppc --instr fmadd --mode 64
-python ppc2arm.py --from ppc --instr vaddubm
-python ppc2arm.py --from ppc --instr blr
-python ppc2arm.py --from ppc --instr sc
-python ppc2arm.py --from ppc --instr bdnz
+ppc2arm --from ppc --instr lwz
+ppc2arm --from ppc --instr add
+ppc2arm --from ppc --instr fmadd --mode 64
+ppc2arm --from ppc --instr vaddubm
+ppc2arm --from ppc --instr blr
+ppc2arm --from ppc --instr sc
+ppc2arm --from ppc --instr bdnz
 
 # ARM → PPC
-python ppc2arm.py --from arm --instr LDR
-python ppc2arm.py --from arm --instr FMADD
-python ppc2arm.py --from arm --instr ZIP1
-python ppc2arm.py --from arm --instr SVC
-python ppc2arm.py --from arm --instr CAS
+ppc2arm --from arm --instr LDR
+ppc2arm --from arm --instr FMADD
+ppc2arm --from arm --instr ZIP1
+ppc2arm --from arm --instr SVC
+ppc2arm --from arm --instr CAS
 ```
 
 Example output for `--from ppc --instr fmadd --mode 64`:
@@ -243,8 +266,8 @@ Example output for `--from ppc --instr bdnz` (a suggestion):
 ### Interactive REPL
 
 ```bash
-python ppc2arm.py          # no args drops you into REPL
-python ppc2arm.py --repl   # explicit flag
+ppc2arm          # no args drops you into REPL
+ppc2arm --repl   # explicit flag
 ```
 
 The REPL greets you with a random compiler quote and a prompt that shows your current direction and mode:
@@ -287,8 +310,8 @@ ppc2arm[ppc/32]> vaddubm
 ### GUI
 
 ```bash
-python ppc2arm.py --gui
-python ppc2arm.py --gui --mode 64
+ppc2arm --gui
+ppc2arm --gui --mode 64
 ```
 
 The GUI opens the **ISA Translation Station** window with:
@@ -304,9 +327,9 @@ The GUI opens the **ISA Translation Station** window with:
 ## Architecture
 
 ```
-PPC2ARM/
-├── ppc2arm.py                 # CLI entry point (single-shot, REPL) & GUI launcher
-├── requirements.txt           # wxPython >= 4.2
+PPC2ARM/                       # all packages below live in src/ppc2arm/
+├── src/ppc2arm/cli.py         # CLI entry point (single-shot, REPL) & GUI launcher
+├── pyproject.toml             # packaging; wxPython is the optional [gui] extra
 ├── README.md                  # You are here
 │
 ├── core/
@@ -439,7 +462,7 @@ Built with:
 
 ## License
 
-MIT. Do whatever you want with it. Port it to RISC-V. We dare you.
+MIT — see [LICENSE](LICENSE). Do whatever you want with it. Port it to RISC-V. We dare you.
 
 ```
   † Alpha AXP     (1992–2004)  "Fastest ever. Gone too soon."
@@ -452,3 +475,7 @@ MIT. Do whatever you want with it. Port it to RISC-V. We dare you.
   ♥ PowerPC/POWER still alive (in your cloud, your car, your console)
   ♥ RISC-V        rising fast (open, free, unstoppable)
 ```
+
+---
+
+> *From the minds of IBM Bob & Daneyand*
